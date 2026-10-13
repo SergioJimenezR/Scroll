@@ -1,0 +1,49 @@
+const elementos = [...document.querySelectorAll("*")].reverse();
+
+for (const elemento of elementos) {
+    const estilo = getComputedStyle(elemento);
+
+    const scrollVertical =
+        elemento.scrollHeight > elemento.clientHeight &&
+        ["auto", "scroll"].includes(estilo.overflowY);
+
+    const scrollHorizontal =
+        elemento.scrollWidth > elemento.clientWidth &&
+        ["auto", "scroll"].includes(estilo.overflowX);
+
+    if (scrollVertical) {
+        elemento.style.setProperty(
+            "height",
+            elemento.scrollHeight + "px",
+            "important"
+        );
+
+        elemento.style.setProperty(
+            "max-height",
+            "none",
+            "important"
+        );
+    }
+
+    if (scrollHorizontal) {
+        elemento.style.setProperty(
+            "width",
+            elemento.scrollWidth + "px",
+            "important"
+        );
+
+        elemento.style.setProperty(
+            "max-width",
+            "none",
+            "important"
+        );
+    }
+
+    if (scrollVertical || scrollHorizontal) {
+        elemento.style.setProperty(
+            "overflow",
+            "visible",
+            "important"
+        );
+    }
+}
